@@ -1,0 +1,30 @@
+import cv2
+import asyncio
+import websockets
+
+face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
+cam = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+
+async def detect_faces(websocket, path):
+    print("Client connected...")
+    try:
+        while True:
+            ret, frame = cam.read()
+            if not ret:
+                continue
+
+            gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+            faces = face_cascade.detectMultiScale(gray, 1.1, 4)
+
+            status = "present" if len(faces) > 0 else "absent"
+            await websocket.send(status)
+            await asyncio.sleep(1)
+    except websockets.ConnectionClosed:
+        print("Client disconnected.")
+    finally:
+        cam.release()
+
+start_server = websockets.serve(detect_faces, "localhost", 8765)
+print("WebSocket server started at ws://localhost:8765")
+asyncio.get_event_loop().run_until_complete(start_server)
+asyncio.get_event_loop().run_forever()
