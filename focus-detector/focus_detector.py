@@ -25,6 +25,8 @@ async def detect_faces(websocket, path):
         cam.release()
 # its start the server and the connect with react project
 
+## need improvemnt here code is imcompleted 
+
 start_server = websockets.serve(detect_faces, "localhost", 8765)
 print("WebSocket server started at ws://localhost:8765")
 #print the server port number
