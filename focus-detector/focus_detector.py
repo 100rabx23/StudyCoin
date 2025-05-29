@@ -4,7 +4,7 @@ import websockets
 #imports
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
 cam = cv2.VideoCapture(0, cv2.CAP_DSHOW)
-
+#canera fro the face
 async def detect_faces(websocket, path):
     print("Client connected...")
     try:
