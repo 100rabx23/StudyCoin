@@ -23,6 +23,7 @@ async def detect_faces(websocket, path):
         print("Client disconnected.")
     finally:
         cam.release()
+# its start the server and the connect with react project
 
 start_server = websockets.serve(detect_faces, "localhost", 8765)
 print("WebSocket server started at ws://localhost:8765")
