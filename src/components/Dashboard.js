@@ -1,197 +1,147 @@
-import React, { useEffect, useState } from "react";
-import { useUser } from '../contexts/UserContext';
-import Timer from "./Timer";
-import WebcamFeed from "./WebcamFeed";
-import FocusPoints from "./FocusPoints";
-import styled from 'styled-components';
+import React, { useEffect, useState, useRef } from "react";
+import { useUser } from "../contexts/UserContext";
 
-const DashboardContainer = styled.div`
-  padding: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-`;
+const Dashboard = () => {
+  const userContext = useUser();
+  const [studyTime, setStudyTime] = useState(0);
+  const [timerRunning, setTimerRunning] = useState(false);
+  const [sessionId, setSessionId] = useState(null);
+  const [wsConnected, setWsConnected] = useState(false);
+  const [cameraError, setCameraError] = useState(false);
+  const videoRef = useRef(null);
+  const wsRef = useRef(null);
 
-const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
-`;
+  const { user, points, loading, updatePoints, addSession, updateSession } = userContext || {};
 
-const UserInfo = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-`;
+  // Connect to webcam and WebSocket on start
+  const startCameraAndWebSocket = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      videoRef.current.srcObject = stream;
+      videoRef.current.play();
+      setCameraError(false);
 
-const Avatar = styled.img`
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-`;
+      const ws = new WebSocket("ws://localhost:8000");
+      ws.onopen = () => {
+        setWsConnected(true);
+        console.log("✅ WebSocket connected");
+      };
+      ws.onerror = (err) => {
+        console.error("❌ WebSocket error", err);
+        setWsConnected(false);
+      };
+      ws.onclose = () => {
+        console.warn("⚠️ WebSocket closed");
+        setWsConnected(false);
+      };
+      wsRef.current = ws;
 
-const StatsGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-`;
-
-const StatCard = styled.div`
-  background: white;
-  padding: 1.5rem;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-`;
-
-const SessionHistory = styled.div`
-  background: white;
-  padding: 1.5rem;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-`;
-
-function Dashboard() {
-  const { user, points, sessions, updatePoints, addSession, updateSession } = useUser();
-  const [status, setStatus] = useState("connecting...");
-  const [isFocused, setIsFocused] = useState(false);
-  const [currentSessionId, setCurrentSessionId] = useState(null);
-
-  useEffect(() => {
-    const socket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
-
-    socket.onopen = () => {
-      console.log("WebSocket connected.");
-      // Start new session when connection is established
-      addSession({}).then(id => setCurrentSessionId(id));
-    };
-
-    socket.onmessage = (event) => {
-      const message = event.data;
-      setIsFocused(message === "present");
-      setStatus(message);
-    };
-
-    socket.onerror = (error) => {
-      console.error("WebSocket error:", error);
-    };
-
-    socket.onclose = () => {
-      console.warn("WebSocket closed.");
-      if (currentSessionId) {
-        updateSession(currentSessionId, {
-          endTime: new Date().toISOString(),
-          focusPercentage: calculateFocusPercentage()
-        });
-      }
-    };
-
-    return () => socket.close();
-  }, [currentSessionId]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (isFocused) {
-        const newPoints = points + 1;
-        updatePoints(newPoints);
-        if (currentSessionId) {
-          updateSession(currentSessionId, {
-            pointsEarned: newPoints
-          });
-        }
-      }
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [isFocused, points, currentSessionId]);
-
-  const calculateFocusPercentage = () => {
-    if (!sessions.length) return 0;
-    const totalSessions = sessions.length;
-    const focusedSessions = sessions.filter(s => s.focusPercentage > 80).length;
-    return (focusedSessions / totalSessions) * 100;
+    } catch (err) {
+      console.error("🚫 Could not access camera", err);
+      setCameraError(true);
+    }
   };
 
-  if (!user) return <div>Please log in to access the dashboard.</div>;
+  const stopCameraAndWebSocket = () => {
+    if (videoRef.current?.srcObject) {
+      videoRef.current.srcObject.getTracks().forEach(track => track.stop());
+    }
+    if (wsRef.current) {
+      wsRef.current.close();
+    }
+    setWsConnected(false);
+  };
+
+  // Timer effect
+  useEffect(() => {
+    if (!timerRunning) return;
+    const interval = setInterval(() => {
+      setStudyTime((prev) => prev + 1);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [timerRunning]);
+
+  // Send frame every 3 seconds if running
+  useEffect(() => {
+    if (!timerRunning || cameraError || !wsConnected) return;
+
+    const sendFrame = () => {
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+      const video = videoRef.current;
+      if (!video) return;
+
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      canvas.toBlob((blob) => {
+        if (blob && wsRef.current?.readyState === WebSocket.OPEN) {
+          wsRef.current.send(blob);
+          console.log("📸 Frame sent to server");
+        }
+      }, "image/jpeg");
+    };
+
+    const interval = setInterval(sendFrame, 3000);
+    return () => clearInterval(interval);
+  }, [timerRunning, wsConnected, cameraError]);
+
+  // Award points every 60 seconds if camera is working
+  useEffect(() => {
+    if (studyTime > 0 && studyTime % 60 === 0 && !cameraError && wsConnected) {
+      updatePoints?.(points + 1);
+    }
+  }, [studyTime]);
+
+  const handleStart = async () => {
+    await startCameraAndWebSocket();
+    setTimerRunning(true);
+    if (addSession) {
+      const id = await addSession({
+        startTime: Date.now(),
+        duration: 0,
+      });
+      setSessionId(id);
+    }
+  };
+
+  const handleStop = () => {
+    stopCameraAndWebSocket();
+    setTimerRunning(false);
+    if (updateSession && sessionId) {
+      updateSession({
+        id: sessionId,
+        startTime: Date.now(),
+        duration: studyTime,
+      });
+    }
+  };
+
+  if (loading) return <div>Loading context...</div>;
+  if (!user) return <div>Not logged in</div>;
 
   return (
-    <DashboardContainer>
-      <Header>
-        <h1>📚 Study Dashboard</h1>
-        <UserInfo>
-          <Avatar src={user.photoURL} alt={user.displayName} />
-          <div>
-            <h3>{user.displayName}</h3>
-            <p>{user.email}</p>
-          </div>
-        </UserInfo>
-      </Header>
-
-      <StatsGrid>
-        <StatCard>
-          <h3>Current Points</h3>
-          <h2>{points}</h2>
-        </StatCard>
-        <StatCard>
-          <h3>Focus Status</h3>
-          <h2 style={{ color: isFocused ? 'green' : 'red' }}>
-            {isFocused ? 'Focused' : 'Not Focused'}
-          </h2>
-        </StatCard>
-        <StatCard>
-          <h3>Focus Percentage</h3>
-          <h2>{calculateFocusPercentage().toFixed(1)}%</h2>
-        </StatCard>
-      </StatsGrid>
-
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
-        <div>
-          <Timer />
-          <WebcamFeed />
-        </div>
-        <FocusPoints />
+    <div style={{ textAlign: "center", marginTop: "40px" }}>
+      <h1>Welcome, {user.displayName || "User"}!</h1>
+      {cameraError && (
+        <p style={{ color: "red" }}>🚫 Camera not accessible! Please allow camera access.</p>
+      )}
+      <video ref={videoRef} style={{ width: "320px", height: "240px", margin: "10px auto", display: cameraError ? "none" : "block" }} />
+      <p>📈 Study Time: <strong>{studyTime}</strong> seconds</p>
+      <p>🎯 Points: <strong>{points}</strong></p>
+      <div style={{ marginTop: "20px" }}>
+        <button onClick={handleStart} disabled={timerRunning}>
+          Start
+        </button>
+        <button onClick={handleStop} disabled={!timerRunning}>
+          Stop
+        </button>
       </div>
-
-      <SessionHistory>
-        <h2>Study History</h2>
-        <div style={{ maxHeight: '300px', overflowY: 'auto' }}>
-          {sessions.map(session => (
-            <div key={session.id} style={{ padding: '1rem', borderBottom: '1px solid #eee' }}>
-              <p>Date: {new Date(session.startTime).toLocaleDateString()}</p>
-              <p>Duration: {session.endTime ? 
-                Math.round((new Date(session.endTime) - new Date(session.startTime)) / 1000 / 60) : 
-                'In Progress'} minutes</p>
-              <p>Points Earned: {session.pointsEarned}</p>
-              <p>Focus: {session.focusPercentage?.toFixed(1)}%</p>
-            </div>
-          ))}
-        </div>
-      </SessionHistory>
-    </DashboardContainer>
-  );
-}
-
-export default Dashboard;
-
-
-/*
-// src/components/Dashboard.js
-import React from "react";
-import Timer from "./Timer";
-import WebcamFeed from "./WebcamFeed";
-import FocusPoints from "./FocusPoints";
-
-function Dashboard() {
-  return (
-    <div style={{ padding: 20 }}>
-      <h2>📚 Study Dashboard</h2>
-      <Timer />
-      <WebcamFeed />
-      <FocusPoints />
     </div>
   );
-}
+};
 
 export default Dashboard;
 
-*/
+// Note: Ensure you have the necessary imports and context setup in your project.
+// This code assumes you have a UserContext that provides user, points, loading, updatePoints, addSession, and updateSession methods.
