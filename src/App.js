@@ -1,46 +1,21 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import { UserProvider, useUser } from './contexts/UserContext';
-import LoginPage from './components/LoginPage';
-import Dashboard from './components/Dashboard';
-import styled from 'styled-components';
+// src/App.js
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import LoginPage from "./components/LoginPage";
+import Dashboard from "./components/Dashboard";
+import { UserProvider } from "./contexts/UserContext"; // Or ./contexts/UserContext if that's the correct path
 
-const AppContainer = styled.div`
-  min-height: 100vh;
-  background: #f5f5f5;
-`;
-
-function PrivateRoute({ children }) {
-  const { user, loading } = useUser();
-  
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-  
-  return user ? children : <Navigate to="/" />;
-}
-
-function App() {
+const App = () => {
   return (
     <UserProvider>
-      <AppContainer>
-        <Router>
-          <Routes>
-            <Route path="/" element={<LoginPage />} />
-            <Route 
-              path="/dashboard" 
-              element={
-                <PrivateRoute>
-                  <Dashboard />
-                </PrivateRoute>
-              } 
-            />
-          </Routes>
-        </Router>
-      </AppContainer>
+      <Router>
+        <Routes>
+          <Route path="/" element={<LoginPage />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Routes>
+      </Router>
     </UserProvider>
   );
-}
+};
 
 export default App;
-
