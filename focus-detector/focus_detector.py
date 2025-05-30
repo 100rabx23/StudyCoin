@@ -1,38 +1,29 @@
-import cv2
 import asyncio
 import websockets
-#imports
-face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
-cam = cv2.VideoCapture(0, cv2.CAP_DSHOW)
-#canera fro the face
-async def detect_faces(websocket, path):
-    print("Client connected...")
+import cv2
+import numpy as np
+
+async def handler(websocket, _):
+    print("📡 Client connected!")
     try:
-        while True:
-            ret, frame = cam.read()
-            if not ret:
-                continue
-
-            gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-            faces = face_cascade.detectMultiScale(gray, 1.1, 4)
-
-            status = "present" if len(faces) > 0 else "absent"
-            await websocket.send(status)
-            await asyncio.sleep(1)
-    except websockets.ConnectionClosed:
-        print("Client disconnected.")
+        async for message in websocket:
+            print("🟢 Frame received")
+            np_arr = np.frombuffer(message, np.uint8)
+            img = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
+            if img is not None:
+                cv2.imshow("Focus Detector", img)
+                if cv2.waitKey(1) & 0xFF == ord('q'):
+                    break
+    except Exception as e:
+        print("❌ Error:", e)
     finally:
-        cam.release()
-# its start the server and the connect with react project
+        cv2.destroyAllWindows()
+        print("📴 Client disconnected")
 
-## need improvemnt here code is imcompleted 
+async def main():
+    async with websockets.serve(handler, "localhost", 8000):
+        print("🚀 WebSocket server running at ws://localhost:8000")
+        await asyncio.Future()  # Run forever
 
-start_server = websockets.serve(detect_faces, "localhost", 8765)
-print("WebSocket server started at ws://localhost:8765")
-#print the server port number
-asyncio.get_event_loop().run_until_complete(start_server)
-asyncio.get_event_loop().run_forever()
-
-
-# code may need to redefine and improvements
-
+if __name__ == "__main__":
+    asyncio.run(main())
