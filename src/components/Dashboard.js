@@ -148,6 +148,11 @@ export default Dashboard;
 */
 import React, { useEffect, useState, useRef } from "react";
 import { useUser } from "../contexts/UserContext";
+import WalletConnect from "./WalletConnect";
+
+// Inside your return JSX:
+<WalletConnect onWalletConnected={(address) => console.log("Connected wallet:", address)} />
+
 
 const Dashboard = () => {
   const userContext = useUser();
@@ -286,6 +291,7 @@ const Dashboard = () => {
   return (
     <div style={{ textAlign: "center", marginTop: "40px" }}>
       <h1>Welcome, {user.displayName || "User"}!</h1>
+    <WalletConnect onWalletConnected={(address) => console.log("Connected wallet:", address)} />
 
       {/* CAMERA & CONNECTION ERRORS */}
       {cameraError && <p style={{ color: "red" }}>🚫 Camera not accessible! Please allow camera access.</p>}
@@ -312,6 +318,8 @@ const Dashboard = () => {
         <button onClick={handleStop} disabled={!timerRunning}>⏹️ Stop</button>
       </div>
     </div>
+
+
   );
 };
 
