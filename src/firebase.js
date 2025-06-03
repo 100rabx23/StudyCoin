@@ -5,7 +5,7 @@ import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCOdR-CN60YAZZ8RAvvz3gG0L2yFpf1DZ0",
+  apiKey: "ENTER_YOUR",
     authDomain: "timecoin-app.firebaseapp.com",
     projectId: "timecoin-app",
     storageBucket: "timecoin-app.firebasestorage.app",
