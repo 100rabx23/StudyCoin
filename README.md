@@ -11,7 +11,7 @@ FocusToken is a Web3 productivity app that:
 - Tracks user focus via webcam and WebSocket-based activity monitoring.
 - Awards 1 **FocusToken (FCS)** for every 60 seconds of continuous focus.
 - Connects seamlessly with MetaMask.
-- Mints tokens to the user's wallet (pending deployment).
+- Mints tokens to the user's wallet.
 
 ---
 
