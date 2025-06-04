@@ -33,7 +33,7 @@ FocusToken is a Web3 productivity app that:
 
 ---
 
-## 📄 Smart Contract (Pending Deployment)
+## 📄 Smart Contract
 
 ```solidity
 // SPDX-License-Identifier: MIT
