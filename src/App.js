@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LoginPage from "./components/LoginPage";
 import Dashboard from "./components/Dashboard";
 import { UserProvider } from "./contexts/UserContext"; // Or ./contexts/UserContext if that's the correct path
+import React from "react";
 
 const App = () => {
   return (
