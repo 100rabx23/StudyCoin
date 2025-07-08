@@ -14,6 +14,7 @@ FocusToken is a Web3 productivity app that:
 
 ---
 
+****
 ## 🚀 Features
 
 - 🧠 Focus Detection: Backend tracks whether you're focused or distracted.
