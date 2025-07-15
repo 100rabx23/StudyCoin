@@ -12,7 +12,7 @@ FocusToken is a Web3 productivity app that:
 - Connects seamlessly with MetaMask.
 - Mints tokens to the user's wallet.
 
----
+
 ## 🚀 Features
 
 - 🧠 Focus Detection: Backend tracks whether you're focused or distracted.
