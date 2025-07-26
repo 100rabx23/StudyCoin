@@ -6,6 +6,7 @@ A decentralized web application that rewards users with cryptocurrency for stayi
 ## 📌 What Is This?
 ****
 ****
+****
 FocusToken is a Web3 productivity app that:
 
 - Tracks user focus via webcam and WebSocket-based activity monitoring.
