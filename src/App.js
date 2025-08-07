@@ -21,5 +21,4 @@ const App = () => {
 
 export default App;
 
-//App.js code
-//again
+/* this is class for non-functional activites*/
