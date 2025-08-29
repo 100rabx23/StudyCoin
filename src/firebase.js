@@ -14,6 +14,7 @@ const firebaseConfig = {
     measurementId: "G-CCTR2T0L6Z"
 };
 // import {};
+//hi-realtime
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const provider = new GoogleAuthProvider();
