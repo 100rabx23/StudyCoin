@@ -13,7 +13,7 @@ const firebaseConfig = {
     appId: "1:829653396755:web:927e27891e51680c297ee6",
     measurementId: "G-CCTR2T0L6Z"
 };
-// import {};
+
 //hi-realtime
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
