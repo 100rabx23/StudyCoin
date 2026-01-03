@@ -10,6 +10,7 @@ import {
   updateDoc
 } from "firebase/firestore";
 
+
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
