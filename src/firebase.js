@@ -4,6 +4,8 @@ import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 // fun0-[] 
+
+//₹###@#₹₹@
 const firebaseConfig = {
   apiKey: "ENTER_YOUR",
     authDomain: "timecoin-app.firebaseapp.com",
