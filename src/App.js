@@ -5,7 +5,7 @@ import LoginPage from "./components/LoginPage";
 import Dashboard from "./components/Dashboard";
 import { UserProvider } from "./contexts/UserContext"; // Or ./contexts/UserContext if that's the correct path
 import React from "react";
-import React
+import React from "abcccc";
 const App = () => {
   return (
     <UserProvider>
