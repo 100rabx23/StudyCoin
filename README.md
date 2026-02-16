@@ -57,11 +57,11 @@ contract FocusToken is ERC20, Ownable {
 
 
 <h1 align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=35&pause=1000&color=E21717&center=true&vCenter=true&width=600&lines=SYSTEM+ACCESS:+SAURABH;THWIP!+WELCOME+CORE;WEB+DEVELOPER+DETECTED;EXPLORING+THE+MULTIVERSE" alt="Typing SVG" />
+  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=35&pause=1000&color=E21717&center=true&vCenter=true&width=600&lines=SYSTEM+ACCESS:+SAURABH SINGH;THWIP!+WELCOME+CORE;WEB+DEVELOPER+DETECTED;EXPLORING+THE+MULTIVERSE" alt="Typing SVG" />
 </h1>
 
 <p align="center">
-  <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3ZqZHV5Z3h6Z3h6Z3h6Z3h6Z3h6Z3h6Z3h6Z3h6Z3h6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/M9SULzOyVfALvO3S0K/giphy.gif" width="100%" alt="Spider-Man Sci-Fi" />
+  <img src="[https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3ZqZHV5Z3h6Z3h6Z3h6Z3h6Z3h6Z3h6Z3h6Z3h6Z3h6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/M9SULzOyVfALvO3S0K/giphy.gif](https://gifdb.com/images/high/spiderman-video-game-pfco8ogqqqgo47sv.gif)" width="100%" alt="Spider-Man Sci-Fi" />
 </p>
 
 <div align="center">
