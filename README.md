@@ -57,42 +57,36 @@ contract FocusToken is ERC20, Ownable {
 <div align="center">
   <table border="0" cellpadding="0" cellspacing="0" width="100%">
     <tr>
-      <td width="60%" valign="top" align="left">
-        <h2 align="left">🕸️ Neural Network (Skill Domains)</h2>
-        <table width="100%">
-          <thead>
-            <tr style="border: none;">
-              <th align="left"><b>Layer</b></th>
-              <th align="left"><b>Technologies & Frameworks</b></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><b>Logic Shell</b></td>
-              <td><img src="https://skillicons.dev/icons?i=java,cpp,python,dart,cs&theme=dark" /></td>
-            </tr>
-            <tr>
-              <td><b>Interface Deck</b></td>
-              <td><img src="https://skillicons.dev/icons?i=html,css,js,flutter,dotnet,nodejs" /></td>
-            </tr>
-            <tr>
-              <td><b>Infrastructure</b></td>
-              <td><img src="https://skillicons.dev/icons?i=firebase,github,vscode,androidstudio,blender" /></td>
-            </tr>
-            <tr>
-              <td><b>Environment</b></td>
-              <td><img src="https://skillicons.dev/icons?i=kali,linux,raspberrypi,windows,ubuntu" /></td>
-            </tr>
-          </tbody>
+      <td width="50%" valign="top" align="left" style="padding-right: 10px;">
+        <h3 align="left">🕸️ NEURAL NETWORK</h3>
+        <table width="100%" style="border-collapse: collapse;">
+          <tr style="border-bottom: 1px solid #333;">
+            <td align="left" padding="5px"><b>Logic</b></td>
+            <td align="right"><img src="https://skillicons.dev/icons?i=java,cpp,python,dart,cs&theme=dark" height="30px" /></td>
+          </tr>
+          <tr style="border-bottom: 1px solid #333;">
+            <td align="left" padding="5px"><b>Deck</b></td>
+            <td align="right"><img src="https://skillicons.dev/icons?i=html,css,js,flutter,dotnet,nodejs" height="30px" /></td>
+          </tr>
+          <tr style="border-bottom: 1px solid #333;">
+            <td align="left" padding="5px"><b>Core</b></td>
+            <td align="right"><img src="https://skillicons.dev/icons?i=firebase,github,vscode,androidstudio,blender" height="30px" /></td>
+          </tr>
+          <tr>
+            <td align="left" padding="5px"><b>OS</b></td>
+            <td align="right"><img src="https://skillicons.dev/icons?i=kali,linux,raspberrypi,windows,ubuntu" height="30px" /></td>
+          </tr>
         </table>
       </td>
-      <td width="50%" valign="middle" align="center">
+      <td width="50%" valign="top" align="center" style="padding-left: 10px;">
+        <h3 align="center">📡 SYSTEM SCAN</h3>
         <img src="https://media.tenor.com/Rq7iDzaJh4UAAAAM/spiderman-ps4-spiderman-ps5.gif" width="100%" style="border-radius: 10px; border: 2px solid #E21717; box-shadow: 0 0 15px #E21717;" />
-        <br />
+        <p align="center">
+          <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=14&pause=500&color=E21717&center=true&vCenter=true&width=200&lines=ANALYZING+CORE...;THREATS:+NONE;SUIT+READY..." alt="Status SVG" />
+        </p>
       </td>
     </tr>
   </table>
 </div>
 
 <img src="https://i.imgur.com/dJ76osD.png" width="100%" height="8px" />
-
