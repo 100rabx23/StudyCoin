@@ -61,7 +61,7 @@ contract FocusToken is ERC20, Ownable {
 </h1>
 
 <p align="center">
-  <img src="[https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3ZqZHV5Z3h6Z3h6Z3h6Z3h6Z3h6Z3h6Z3h6Z3h6Z3h6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/M9SULzOyVfALvO3S0K/giphy.gif](https://gifdb.com/images/high/spiderman-video-game-pfco8ogqqqgo47sv.gif)" width="100%" alt="Spider-Man Sci-Fi" />
+  <img src="https://gifdb.com/images/high/spiderman-video-game-pfco8ogqqqgo47sv.gif" width="100%" alt="Spider-Man Sci-Fi" />
 </p>
 
 <div align="center">
