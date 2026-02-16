@@ -87,9 +87,8 @@ contract FocusToken is ERC20, Ownable {
         </table>
       </td>
       <td width="40%" valign="middle" align="center">
-        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHp4cnR4bmR4bmR4bmR4bmR4bmR4bmR4bmR4bmR4bmR4bmR4bmR4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/QUY2upAMnGKJWPL25B/giphy.gif" width="100%" style="border-radius: 10px; border: 2px solid #E21717; box-shadow: 0 0 15px #E21717;" />
+        <img src="https://media.tenor.com/Rq7iDzaJh4UAAAAM/spiderman-ps4-spiderman-ps5.gif" width="100%" style="border-radius: 10px; border: 2px solid #E21717; box-shadow: 0 0 15px #E21717;" />
         <br />
-        <code>[SYSTEM_ANALYSIS_ACTIVE]</code>
       </td>
     </tr>
   </table>
