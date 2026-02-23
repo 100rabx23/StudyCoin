@@ -6,6 +6,8 @@
 A decentralized web application that rewards users with cryptocurrency for staying focused using their webcam activity.
 
 
+
+
 *****
 
 ## 📌 What Is This?
