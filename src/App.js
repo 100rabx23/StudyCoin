@@ -27,4 +27,4 @@ export default App;
 //-------!--------
 //________
 
-/* this is class for non-functional activites*/
+/* this is  for non-functional activites*/
