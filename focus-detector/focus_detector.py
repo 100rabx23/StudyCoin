@@ -27,7 +27,7 @@ async def process_frame(websocket):
             print(f"📤 Focused: {focused}")
 
     except websockets.exceptions.ConnectionClosedError:
-        print("❌ Client disconnected")
+        print("❌ Client disconnected!")
     except Exception as e:
         print("⚠️ Error in handler:", str(e))
 
