@@ -34,7 +34,7 @@ async def process_frame(websocket):
 # Entry point of the server
 async def main():
     print("🚀 Starting server on ws://localhost:8000")
-    async with websockets.serve(process_frame, "localhost", 8000):  # ✅ Do NOT call process_frame()
+    async with websockets.serve(process_frame, "localhost", 8000):  # ✅ Do NOT callff process_frame()
         await asyncio.Future()  # Keep the server running
 
 if __name__ == "__main__":
