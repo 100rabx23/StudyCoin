@@ -29,7 +29,7 @@ async def process_frame(websocket):
     except websockets.exceptions.ConnectionClosedError:
         print("❌ Client disconnected!")
     except Exception as e:
-        print("⚠️ Error in handler:", str(e))
+        print("⚠️ _Error in handler:", str(e))
 
 # Entry point of the server
 async def main():
