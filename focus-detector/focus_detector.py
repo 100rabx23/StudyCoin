@@ -9,7 +9,7 @@ face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_fronta
 
 # This function handles incoming WebSocket connections
 async def process_frame(websocket):
-    print("✅ Client connected")
+    print("✅ Client connected!")
     try:
         async for message in websocket:
             nparr = np.frombuffer(message, np.uint8)
