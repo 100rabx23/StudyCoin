@@ -24,7 +24,7 @@ const App = () => {
 
 export default App;
 
-//-------!--------
-//________
+//-------
+//_______
 
 /* this is  for non-functional activites*/
