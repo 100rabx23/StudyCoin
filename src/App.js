@@ -22,7 +22,3 @@ const App = () => {
 };
 
 export default App;
-
-//_______
-
-/* this is  for non-functional activites*/
