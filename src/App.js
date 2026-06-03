@@ -5,7 +5,7 @@ import LoginPage from "./components/LoginPage";
 import Dashboard from "./components/Dashboard";
 import { UserProvider } from "./contexts/UserContext";
 
- // Or ./contexts/UserContext if that's the correc
+ // Or ./contexts/UserContext 
 
 //1234
 import React from "react";
