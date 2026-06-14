@@ -4,7 +4,7 @@ import cv2
 import numpy as np
 import json
 
-# Face detector
+
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
 
 # This function handles incoming WebSocket connections
